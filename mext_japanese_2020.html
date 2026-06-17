@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEXT 2020 Japanese Exam</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",sans-serif;background:#f1f5f9;padding:16px;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:20px}
+.hdr{padding-bottom:12px;border-bottom:1px solid #e2e8f0;margin-bottom:14px}
+.hdr h1{font-size:16px;font-weight:600;color:#0f172a}
+.hdr p{font-size:13px;color:#64748b;margin-top:3px}
+.ltabs{display:flex;gap:8px;margin-bottom:12px}
+.ltab{font-size:13px;padding:6px 16px;border:1px solid #cbd5e1;border-radius:7px;background:#fff;cursor:pointer;color:#475569;font-weight:500}
+.ltab.on{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.stabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.stab{font-size:12px;padding:4px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;color:#64748b}
+.stab.on{background:#334155;color:#fff;border-color:#334155}
+.sec-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.instr{font-size:13px;color:#64748b;font-style:italic;margin-bottom:12px;border-left:3px solid #e2e8f0;padding-left:10px;line-height:1.5}
+.qb{background:#fafafa;border:1px solid #e2e8f0;border-radius:8px;padding:12px;margin-bottom:8px}
+.qb.ok{border-color:#16a34a;background:#f0fdf4}
+.qb.ng{border-color:#dc2626;background:#fef2f2}
+.qb.sm{border-color:#d97706;background:#fffbeb}
+.qt{font-size:14px;line-height:1.7;color:#1e293b;margin-bottom:8px;white-space:pre-wrap}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{font-size:13px;padding:7px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;text-align:left;color:#334155;line-height:1.4}
+.opt:hover{background:#eff6ff;border-color:#93c5fd}
+.opt.sel{background:#dbeafe;border-color:#2563eb;color:#1e40af;font-weight:500}
+.opt.good{background:#dcfce7!important;border-color:#16a34a!important;color:#14532d!important;font-weight:600}
+.opt.bad{background:#fee2e2!important;border-color:#dc2626!important;color:#7f1d1d!important}
+.opt:disabled{cursor:default}
+.fb{font-size:12px;margin-top:6px;padding:5px 8px;background:rgba(0,0,0,.04);border-radius:4px;color:#555}
+.wcols{display:grid;grid-template-columns:130px 1fr 1fr;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed #f1f5f9}
+.wlabel{font-size:14px;color:#1e293b;font-weight:500}
+.winput{font-size:14px;padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;color:#1e293b;width:100%;font-family:inherit}
+.winput:focus{outline:none;border-color:#7c3aed}
+.wans{font-size:13px;padding:5px 10px;border-radius:6px;background:#f0fdf4;border:1px solid #16a34a;color:#14532d;font-weight:500;visibility:hidden}
+.wans.show{visibility:visible}
+.whead{font-size:13px;font-weight:600;color:#334155;margin:12px 0 6px;border-bottom:1px solid #f1f5f9;padding-bottom:4px}
+.nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:12px;border-top:1px solid #f1f5f9;margin-top:4px}
+.btn{font-size:13px;padding:7px 16px;border:1px solid #cbd5e1;border-radius:7px;background:#fff;cursor:pointer;color:#334155;font-weight:500}
+.btn:hover{background:#f8fafc}
+.btn.primary{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.btn.primary:hover{background:#6d28d9}
+.prog{font-size:12px;color:#94a3b8;margin-left:auto}
+.scorebox{border:1px solid #e2e8f0;border-radius:10px;padding:20px;margin-bottom:14px}
+.stotal{text-align:center;margin-bottom:16px}
+.sbig{font-size:52px;font-weight:700;color:#0f172a;line-height:1}
+.grade{display:inline-block;margin-top:8px;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600}
+.gh{background:#dcfce7;color:#14532d}.gm{background:#fef9c3;color:#713f12}.gl{background:#fee2e2;color:#7f1d1d}
+.lrow{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #f1f5f9}
+.lrow:last-child{border:none;margin:0;padding:0}
+.lhdr{display:flex;justify-content:space-between;margin-bottom:8px}
+.ltitle{font-size:14px;font-weight:600;color:#0f172a}
+.lval{font-size:16px;font-weight:700;color:#0f172a}
+.ssgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.ss{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;text-align:center}
+.sslabel{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;margin-bottom:2px}
+.ssval{font-size:15px;font-weight:700;color:#1e293b}
+.ssnote{font-size:10px;color:#94a3b8}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hdr">
+  <h1>MEXT 2020 — Japanese Qualifying Exam (日本語)</h1>
+  <p>3 levels: A Elementary · B Intermediate · C Advanced &nbsp;·&nbsp; No time limit</p>
+</div>
+<div class="ltabs" id="ltabs"></div>
+<div class="stabs" id="stabs"></div>
+<div id="main"></div>
+<div class="nav" id="nav">
+  <button class="btn" id="pb" onclick="move(-1)">← Prev</button>
+  <button class="btn" id="nb" onclick="move(1)">Next →</button>
+  <button class="btn primary" id="sb" style="display:none" onclick="submit()">Submit exam</button>
+  <span class="prog" id="pg"></span>
+</div>
+</div>
+<script>
+var D=[
+{id:"A",name:"A — Elementary",ss:[
+{id:"AI",name:"I 文法",type:"m",instr:"＿＿に入る一番てきとうなものをA~Dの中から一つえらびなさい。",qs:[
+{q:"1. 山田さんは あたまが ＿＿ しんせつです。",o:["A いいで","B いいと","C よくて","D よいと"],a:"C"},
+{q:"2. ナムさんは ＿＿ スープを 飲みました。",o:["A おいしいで","B おいしいに","C おいしそうで","D おいしそうに"],a:"D"},
+{q:"3. たいふうのため、あしたの 旅行は ＿＿ します。",o:["A そつぎょう","B ちゅうし","C にゅういん","D れんしゅう"],a:"B"},
+{q:"4. ぜひ わたしの 国へ ＿＿ 来てください。",o:["A あそびに","B あそぶ","C あそんで","D あそんだ"],a:"A"},
+{q:"5. すみません、作文の 日本語を ＿＿してもらえますか。",o:["A チック","B チャック","C チェック","D チョーク"],a:"C"},
+{q:"6. この たてものは 木＿＿ つくられています。",o:["A で","B と","C に","D を"],a:"A"},
+{q:"7. 1度だけ、東京に ＿＿ ことが あります。",o:["A 行きたい","B 行こう","C 行って","D 行った"],a:"D"},
+{q:"8. あの 人は 学生の＿＿です。",o:["A そう","B みたい","C よう","D らしい"],a:"D"},
+{q:"9. 「なるほど」は ＿＿ いみですか。",o:["A どういう","B どうして","C どうやって","D どのぐらい"],a:"A"},
+{q:"10. 田中先生、先週、先生に ＿＿ 本は とても おもしろかったです。",o:["A おかりした","B おかりになった","C かりたがった","D かりてくれた"],a:"A"},
+]},
+{id:"AII",name:"II 語彙",type:"m",instr:"＿＿と一番かんけいがあるものをA~Dの中から一つえらびなさい。",qs:[
+{q:"1. きょうは 月よう日です。あさって 山田さんに 会います。",o:["A 火よう日","B 金よう日","C 水よう日","D 木よう日"],a:"C"},
+{q:"2. 来月、父と母が 日本に 来ます。",o:["A きょうだい","B せいと","C せんぱい","D りょうしん"],a:"D"},
+{q:"3. わたしたちは きのう 7時に しゅっぱつしました。",o:["A つきました","B でました","C ねました","D とまりました"],a:"B"},
+{q:"4. 山田さんは ごぞんじですか。",o:["A 会いますか","B 来ますか","C 話しますか","D しっていますか"],a:"D"},
+{q:"5. 雨が ふりだしました。",o:["A つよく ふりました","B ふりそうです","C ふりはじめました","D やみました"],a:"C"},
+{q:"6. きのうの テストは とても やさしかったです。",o:["A あんぜんでした","B かんたんでした","C しんぱいでした","D ひつようでした"],a:"B"},
+{q:"7. 山田さんは 「ただいま」と 言いました。",o:["A いえに かえりました","B ごはんを 食べました","C 先生の いえに 行きました","D 友だちに 会いました"],a:"A"},
+{q:"8. ヨウさんが けっせきするのは めずらしいです。",o:["A いいことです","B ほとんど ありません","C やめてほしいです","D よく あります"],a:"B"},
+{q:"9. そんな ことばを つかっちゃ いけません。",o:["A つかうように してください","B つかってみてください","C つかわないでください","D つかわなければ なりません"],a:"C"},
+{q:"10. あの 人が おこるはずが ありません。",o:["A おこらないと おもいます","B おこられませんでした","C おこるかどうか わかりません","D おこるだろうと おもいます"],a:"A"},
+]},
+{id:"AIII",name:"III 会話",type:"m",instr:"＿＿に入る一番てきとうなものをA~Dの中から一つえらびなさい。",qs:[
+{q:"1. 田中さん:「山田さんと いっしょに しごとが できて よかったです。」\n山田さん:「ありがとうございます。わたしも そう おもいます。」\n田中さん:「＿＿。また、よろしく おねがいします。」",o:["A おかげさまで","B しつれいしました","C おせわになりました","D ごめんなさい"],a:"A"},
+{q:"2. 田中さん:「このあと、いっしょに しょくじに 行きませんか。」\n山田さん:「すみません。＿＿、きょうは むすこの たんじょう日なんです。」\n田中さん:「ああ、そうなんですか。じゃあ、また こんど。」",o:["A ざんねんですが","B つまらないですが","C おきのどくですが","D おねがいですが"],a:"A"},
+{q:"3. ユカさん:「きれいな うみですね。ここで いっしょに しゃしんを とりませんか。」\nエミさん:「＿＿。」\nユカさん:「じゃあ、ミキさんに とってもらいましょう。」",o:["A わたしが とってあげます","B べつの ばしょなら いいですよ","C ここは ちょっと......","D もちろん、いいですよ"],a:"D"},
+{q:"4. 田中さん:「あしたは 何時に 会いましょうか。」\n山田さん:「そうですね。えいがが 14時40分だから、14時20分に えいがかんの前は どうですか。」\n田中さん:「うん、もう ちょっと ＿＿。飲み物を 買いたいので。」\n山田さん:「あ、そうですね。じゃあ、14時10分に しますか。」",o:["A 早い方が いいですか","B 早い方が よくないですか","C 遅い方が いいじゃないですか","D 遅い方が よくないですか"],a:"C"},
+{q:"5. デパートの店員:「いらっしゃいませ。」\n田中さん:「すみません、旅行かばんは どの かいですか。」\nデパートの店員:「＿＿でしたら、4かいでございます。少し 分かりにくい ばしょなので、ごあんないします。」",o:["A ここ","B そこ","C これ","D それ"],a:"D"},
+]},
+{id:"AIV",name:"IV 漢字",type:"w",instr:"＿＿のひらがなと おなじ 漢字で 書く ものをA~Dの中から一つ選びなさい。(Choose the option written with the same kanji as the underlined reading)",
+k:[
+{n:"1",q:"つくえの した に ねこが います。",o:["A 明日は 何の ひ ですか","B 今、ご 前7時です","C この 小説は 日本の 作か が 書きました","D 部屋に 入れるのは、3人以か です"],a:"D"},
+{n:"2",q:"教室には 学生が じゅう 人 います。",o:["A 今日は 1日じゅう いそがしかったです","B 本を じゅっ さつ 買いました","C ここから 家まで あまり とお くありません","D 私は もう 大じょう 夫です"],a:"A"},
+{n:"3",q:"ひとりの 若もの が 立っていました。",o:["A 父は 医しゃ です","B 東京の 会しゃ で はたらきます","C 電しゃ に のります","D 花の しゃ 真を とりました"],a:"D"},
+{n:"4",q:"部屋が あか るいです。",o:["A まどを あ けてください","B あ けまして おめでとうございます","C 顔が あか く なりました","D 日本の ふじさんは 有めい です"],a:"C"},
+{n:"5",q:"雨が きゅう に ふりました。",o:["A むこうから きゅう 行電車が 来ました","B これを 作るのに きゅう 年 かかりました","C 明日は 学校を やす みます","D 私は 日本文化の 研きゅう を しています"],a:"D"},
+],h:[]},
+{id:"AV",name:"V 読解",type:"m",instr:"次の文を読んで、あとの問いに答えなさい。A~Dの中から一つ選びなさい。",qs:[
+{q:"問い１（弁当）:「弁当」を食べたことがありますか。「弁当」は 昔の 中国語から 来た 言葉です。日本では、平安時代（約1100年前）から 弁当が あったそうです。現在でも 食べられる「幕の内弁当」は 江戸時代（約400年前）に 歌舞伎の 休み時間に 食べていた 弁当です。このころには、すでに 弁当の 作り方についての 本が たくさん あったそうです。\n\n文の内容に合っているものはどれですか。",o:["A 弁当という言葉は、日本で作られた言葉です","B 幕の内弁当は特別な弁当なので、現在は食べられません","C 幕の内弁当は、平安時代にできました","D 江戸時代には、弁当の作り方を説明した本がありました"],a:"D"},
+{q:"問い２（日傘）:昨日、私は 日傘を 買いました。日傘というのは、晴れの 日に さす 傘の ことです。日本の 夏はとても 暑いので、外を 歩いていると、頭が 痛くなったり、気分が 悪くなったりします。だから、日本では、夏、雨が 降っていなくても 傘をさすのです。私が 買った 日傘は、白くて、きれいな 花の 絵が ついています。暑い 日は 出かけるのが 大変ですが、きれいな 花の デザインを 見ると、楽しい 気分に なります。私の 国では、晴れの 日に 傘をさしませんが、今度、私の 家族や 友だちに 日傘の よさを 教えてあげようと 思います。\n\n文の内容に合っているものはどれですか。",o:["A 私は 暑い 日に 外を 歩いたので、病気に なりました","B 私は 日傘に 白くて きれいな 花を つけました","C 日傘は、雨が 降っていない 日に さす 傘のことです","D 私の 家族や 友だちは 日傘を さしたことがあります"],a:"C"},
+{q:"問い３（食事）:昔から、日本の 食事は 「一汁三菜」が いいと 言われます。「汁」はスープというい意味で、「菜」は 料理という 意味です。ご飯の 他に、スープと 3つの 料理が あれば、いい 食事に なるということです。日本では、季節の 美しさを 料理で 見せることが 大切だと 言われています。だから、季節が 違うと、料理に 使う 野菜や 魚も 違います。最近は、魚や 野菜や 果物などを 外国から 輸入することが 増えています。また、自分で 料理を 作らないで、店で 買ったり 食べたりすることも 増えていて、少しずつ 食事の 文化が 変わってきています。\n\n日本の 食事について、合っているものはどれですか。",o:["A スープと 3つの 料理が なければなりません","B 最近、日本の 魚や 野菜などを 使っていません","C 料理を 見たとき、季節が わかるように 作るのが いいです","D 自分で 料理を 作って 食べる 文化に 変わってきています"],a:"C"},
+{q:"問い４（めがねの町）:ある 町で、人々は 野菜や 米を 育てて 生活していました。しかし、冬は たくさん 雪が 降るので、仕事が できません。お金がなくて、みんな 困っていました。そんなとき、ある 人が「めがねを 作る 仕事なら、家の 中で できる」と 考えたのです。その 人は、大阪から めがねの 先生を 連れてきました。町の 人たちは、先生から めがねの 作り方を 習って、冬の 間、めがねを 作る 仕事を するように なりました。今、その 町には 600以上の めがねの 工場があり、日本の めがねの ほとんどが そこで 作られています。\n\n文の内容に合っているものはどれですか。",o:["A その 町の 人たちは、みんな めがねをかけています","B 「めがねの 先生」は、毎年 冬に 大阪から 来て 仕事を します","C 「めがねの 先生」は、その 町に めがねの 工場を 作りました","D 日本の いろいろな 場所で、その 町の めがねを 買うことが できます"],a:"D"},
+{q:"問い５（食品ロス）:日本には、食べられるのに 捨てられてしまう 食べ物が 1年で 646万トンも あります。そのなかには、レストランで 食べきれなかったものや、食べ物の 会社が たくさん 作りすぎた ものも あります。このような 捨てられてしまう 食べ物は だんだん 増えているそうです。そこで、このような 食べ物を 減らすために、たくさん 作りすぎた 食べ物を、食べ物が 足りない 国や 人に あげたり、野菜を 作るときに 土に 混ぜて 使ったりしています。\n\n文の内容に合っているものはどれですか。",o:["A 日本では 食べられるのに 捨てられる 食べ物が 少ないです","B たくさん 作りすぎた 食べ物は、食べ物が 足りない 人に あげることがあります","C レストランでは あまった 食べ物を 捨てては いけないという ルールがあります","D 残った 食べ物は 野菜を 作るときに 土に 混ぜて、全部 使います"],a:"B"},
+]}
+]},
+
+{id:"B",name:"B — Intermediate",ss:[
+{id:"BI",name:"I 文法",type:"m",instr:"＿＿に入る最も適当なものをA~Dの中からひとつ選びなさい。",qs:[
+{q:"1. 来年のコンクールで＿＿になるのが 目標 だ。",o:["A 1位","B 1号","C 1代","D 1名"],a:"A"},
+{q:"2. 天気予報によると、＿＿ 週末は 大雨に なるようだ。",o:["A かえって","B せっかく","C どうやら","D なるべく"],a:"C"},
+{q:"3. 社員の意見を無視して、社長は 海外進出を ＿＿ に 決めた。",o:["A 強引","B 強大","C 引力","D 重力"],a:"A"},
+{q:"4. 髪の毛が ＿＿ きたので、近いうちに 切りに 行こうと 思う。",o:["A そって","B そろえて","C のばして","D のびて"],a:"D"},
+{q:"5. 試合に 負けたとき、彼は 目に 涙を ＿＿ いた。",o:["A 浮いて","B 浮かべて","C 浮かんで","D 浮かばれて"],a:"B"},
+{q:"6. 今日は 店内全品2割引！ ＿＿、タバコは 除きます。",o:["A おまけに","B さて","C しかも","D ただし"],a:"D"},
+{q:"7. 誰もいないうちに、＿＿ お菓子を 食べた。",o:["A ざっしり","B ぐっすり","C こっそり","D すっきり"],a:"C"},
+{q:"8. その 時期は、どこへ ＿＿、早めに 宿の 予約を したほうが いい。",o:["A 旅行するたびに","B 旅行するにせよ","C 旅行するように","D 旅行するを問わず"],a:"B"},
+{q:"9. 田中さんが 会社を やめたのには、＿＿ 事情が あったに 違いない。",o:["A さしつかえない","B たりない","C もったいない","D やむをえない"],a:"D"},
+{q:"10. 最近、田中さんに 笑顔が 見られない。悩み事でも ある ＿＿。",o:["A のではないだろうか","B どころではないだろう","C わけにはいかないだろうか","D というものでもないだろう"],a:"A"},
+]},
+{id:"BII",name:"II 語彙",type:"m",instr:"＿＿とほぼ同じ内容のもの、または＿＿と最も関係のあるものをA~Dの中から一つ選びなさい。",qs:[
+{q:"1. 一日おきに 現場の 状況を 報告してください。",o:["A 早朝に","B 二日に一度","C 24時間ごとに","D 明日になったら"],a:"B"},
+{q:"2. 留学しようと 決意した 以上は、あきらめずに がんばることが 大事だ。",o:["A 決意したくせに","B 決意したからには","C 決意したせいで","D 決意しただけでは"],a:"B"},
+{q:"3. 今日は、お招きいただき、ありがとうございます。",o:["A 呼ばれて","B 呼んであげて","C 呼んでくれて","D 呼んでさしあげて"],a:"A"},
+{q:"4. 山田さんは、海で 泳いでいたとき、溺れて 死にかけたそうだ。",o:["A 死んでいる","B 死ぬところだった","C 死んでしまった","D 死んだところだ"],a:"B"},
+{q:"5. このアニメ作品は、子どもはもとより、大人も 楽しめる 内容だ。",o:["A 子どもであるから","B 子どもよりもむしろ","C 子どもにかわって","D 子どもはいうまでもなく"],a:"D"},
+{q:"6. ここ数年、都市の 住宅価格は 上がる一方だ。",o:["A 変わりつつある","B 大きくなりすぎた","C 高くなるばかりだ","D 上昇せざるをえない"],a:"C"},
+{q:"7. 昨日は 思いがけず あわただしい 1日に なった。",o:["A 規則正しい","B いつもと変わらない","C なつかしい","D 色々な用事が入った"],a:"D"},
+{q:"8. 学校から 連絡があって、台風のため、明日の 遠足は 延期とのことです。",o:["A 延期だそうです","B 延期したほうがいいです","C 延期すべきです","D 延期というものです"],a:"A"},
+{q:"9. あしたの 約束なんだけど、別の 日にしてもらえないかなあ。",o:["A どけてほしい","B つるさないでほしい","C ずらしてほしい","D やぶらないでほしい"],a:"C"},
+{q:"10. 緊張しすぎて、何も 考えられなくなった。",o:["A 顔が 真っ赤に なった","B 頭が 真っ青に なった","C 顔が 真っ黒に なった","D 頭が 真っ白に なった"],a:"D"},
+]},
+{id:"BIII",name:"III 会話",type:"m",instr:"＿＿に入る最も適当なものをA~Dの中からひとつ選びなさい。",qs:[
+{q:"1. 客:「面接の 時に 着る スーツを さがしているんですが、どんなのが いいですかね。」\n店員:「＿＿。これ なんか どうですか。」",o:["A そうですよ","B そうですねえ","C どうしましたか","D どうもねえ"],a:"B"},
+{q:"2. 山田さん:「そろそろ 帰るよ。」\n田中さん:「あ、今から 晩ご飯 作るから、よかったら 食べていってよ。」\n山田さん:「＿＿」\n田中さん:「たいしたものの 用意できないけど。」",o:["A え、いいの？","B 今日は 早く 帰らないと いけないから。","C どうしようかな......。やっぱり、遠慮しておくよ。","D 今、そんなに お腹すいていないんだ。"],a:"A"},
+{q:"3. 山田さん:「先生、ちょっと 気分が 悪いんですけど......。」\n先生:「顔色が 悪いですね。誰か 山田さんを 保健室に ＿＿。」\n田中さん:「私が 行きます。」\n先生:「じゃあ、お願いします。」",o:["A 連れてきてもらえませんか","B 連れてきてさしあげませんか","C 連れて行ってもらいませんか","D 連れて行ってあげてくれませんか"],a:"C"},
+{q:"4. 山田さん:「聞いて！ また 恋人と けんかしたんだけど。」\n田中さん:「今度は どうしたの？」\n山田さん:「天ぷらにかけるのは、しょうゆか ソースかで 意見が 合わなくて。」\n田中さん:「＿＿。心配して 損したなあ。」",o:["A なかなか 難しいよね","B なんだ そんなことか","C それは 重要な 問題だよね","D 私は 塩を かけるかな"],a:"B"},
+{q:"5. 田中さん:「すみません。これ、ここで 買った お皿なんですけど、ひびが 入っています。同じものと 換えてもらえますか。」\nお店の人:「大変 申し訳ありません。すぐに 新しいものと 換えさせていただきます。」\n田中さん:「はい、お願いします。」\nお店の人:「どうぞ。こちら、同じ 商品でございます。」\n田中さん:「あれ？ これも、この 部分が かけていますよ。」\nお店の人:「あ、本当ですね。誠に 申し訳ございません。あいにく 同じお皿は もうこの 1枚だけで......。＿＿。」\n田中さん:「ああ、これ、色も きれいだし、少し 大きめですね。じゃあ、これを いただくことにします。」",o:["A こちらの よく似た 感じの お皿は いかがでしょうか","B 早速、同じものを 取り寄せさせていただきます","C 支店には 置いてあるかも しれませんので、一度 確認いたします","D 今後は このようなことが ないように 十分 気をつけます"],a:"A"},
+]},
+{id:"BIV",name:"IV 漢字",type:"w",instr:"＿＿のひらがなと同じ漢字で書くものをA~Dの中からひとつ選びなさい。",
+k:[
+{n:"1",q:"ゆ 断すると、危ない。",o:["A 勉強しないで あそ んでばかりいる","B 水と あぶら は混ざりにくい","C お風呂で 熱い ゆ に入った","D 何人かの とも だちに 電話した"],a:"C"},
+{n:"2",q:"２０歳のときに けっ 婚した。",o:["A 髪にリボンを むす ぶ","B 待ち合わせの 場所を き めよう","C けがをして、ち が出た","D 大学で けい 済学を 勉強している"],a:"D"},
+{n:"3",q:"植物の かん 察をする。",o:["A 自然 かん 境の 保護に 努めます","B コンサートの かん 客は 200人ほど だった","C 民 かん 企業で 働いています","D その 話を 聞いて、とても かん 心した"],a:"D"},
+{n:"4",q:"彼は 今日まで そう 当の 練習を してきた。",o:["A これは 安全のための そう 置です","B 日本に 行く 友人を そう 別しました","C 会議で 2人の 意見が そう 違した","D あのボートは そう 作が 難しい"],a:"C"},
+{n:"5",q:"先生に 宿題を てい 出した。",o:["A 明日は てい 休日だ","B このパソコンの てい 価は 8万円だった","C もっといい 計画を てい 案しよう","D 質問に てい 寧に 答えてくれた"],a:"C"},
+],h:[]},
+{id:"BV",name:"V 読解",type:"m",instr:"次の文章を読んで、あとの問いに答えなさい。答えはA~Dの中から最も適当なものを一つ選びなさい。\n\n（「成功」とは、日々の暮らしの中で、出会った人や所属している組織やグループと、自分とがマッチしていること、ぴったり一致していることだと私は考えています。組織やグループというのは、職場だけではなく家族にも当てはまります。そこがすごく居心地が良くて嫌なことがない、といった状態です。（１）こうした状態には、なかなかなれないのかもしれませんが、これが成功と密接に関係しています。\n今いる場所や集まりと、自分が調和するためには、二つのことが必要です。それは、「周りを裏切らないこと」、そして「（２）自分を裏切らないこと」です。）",qs:[
+{q:"問い１:下線部（１）こうした状態 とはどのような状態ですか。",o:["A 組織やグループが 人の集まりである状態","B 組織やグループが 職場だけでなく家族にも当てはまる状態","C 職場や家族が 組織やグループとなっている状態","D 組織やグループが 居心地が良くて嫌なことがない状態"],a:"D"},
+{q:"問い２:下線部（２）自分を裏切らないこと とはどのようなことですか。",o:["A 自分がやっていることに 違和感を持つこと","B 自分がやっていることに 納得しないこと","C 自分がやっていることに 意味があると感じられること","D 自分のやっていることが おかしいと感じられること"],a:"C"},
+{q:"問い３:下線部（３）に入るものはどれですか。",o:["A 自信が持てない","B ぜひやってみたい","C それはうらやましい","D とても幸せだ"],a:"A"},
+{q:"問い４:下線部（４）これ とはなんですか。",o:["A 「周りを裏切らないこと」と「自分を裏切らないこと」とが同じものであること","B 「周りを裏切らないこと」によって「自分を裏切らないこと」が簡単になること","C 「周りを裏切らないこと」と「自分を裏切らないこと」とがめったに一致しないこと","D 「周りを裏切らないこと」によって「自分を裏切らないこと」の意味が分かること"],a:"C"},
+{q:"問い５:この文章の内容に合っているものはどれですか。",o:["A 自分のやっていることに納得できて、周囲の期待に応えられている状態のとき成功しているといえる","B 周りを裏切らない人は、組織やグループに居場所があるので成功している状態であるといえる","C 周囲を裏切らないことと、自分を裏切らないことはいつでも両立することができる","D 目の前の流れに迷わずに乗ることが成功する上で大切なことである"],a:"A"},
+]}
+]},
+
+{id:"C",name:"C — Advanced",ss:[
+{id:"CI",name:"I 文法",type:"m",instr:"＿＿に入る最も適当なものをA~Dの中からひとつ選びなさい。",qs:[
+{q:"1. 友だちが 田舎に 帰ってから、連絡が ＿＿ と 途絶えてしまった。",o:["A ぽっかり","B ぱったり","C しょんぼり","D がっかり"],a:"B"},
+{q:"2. 父は 30年前に 買った カメラを ＿＿ しながら、今も 大切に 使っている。",o:["A 手分け","B 手引き","C 手入れ","D 手当て"],a:"C"},
+{q:"3. 祝賀会用の ジュースは 3＿＿ も 買っておけば、十分 足りる だろう。",o:["A ダース","B ピース","C ロール","D レース"],a:"A"},
+{q:"4. 今回、失敗に 終わったのは 私のせいだ。本当に ＿＿ ない。",o:["A 面目","B またと","C 味気","D この上"],a:"A"},
+{q:"5. 困っている 人がいるのに ＿＿ 顔で、誰も 助けようとは しなかった。",o:["A 素","B 知らん","C したり","D 浮かぬ"],a:"B"},
+{q:"6. この 問いに 対する 山本さんの 答えは、当たらずとも ＿＿ ですね。",o:["A 遠し","B 遠くなり","C 遠からき","D 遠からず"],a:"D"},
+{q:"7. 限定商品の 購入は、早く 行って 並んだ 者 ＿＿ だ。",o:["A 向け","B 好き","C 勝ち","D 押し"],a:"C"},
+{q:"8. あの 人は 愚痴ばかり ＿＿ いる。",o:["A 唱えて","B つけて","C たらして","D こぼして"],a:"D"},
+{q:"9. ＿＿ では なかったとしても、彼の したことは 到底 許される ものでは ない。",o:["A 故意","B 任意","C 失意","D 鋭意"],a:"A"},
+{q:"10. こうやって 私が 生きてこられたのも、両親 ＿＿ ことだ。",o:["A ありの","B あるの","C あったの","D あっての"],a:"D"},
+]},
+{id:"CII",name:"II 語彙",type:"m",instr:"＿＿とほぼ同じ内容のもの、または＿＿と最も関係のあるものをA~Dの中から一つ選びなさい。",qs:[
+{q:"1. それぐらいの ことで むきになる なんて、ちょっと 大人げないですよ。",o:["A 幼くなる","B がっかりする","C 興味をもつ","D 腹を立てる"],a:"D"},
+{q:"2. 難航すると 思われた 問題は、意外と すんなり 解決した。",o:["A 心もとなく","B 障害もなく","C 絶え間なく","D 物足りなく"],a:"B"},
+{q:"3. 田中さんに 仕事を 依頼したところ、二つ返事で 引き受けてくれた。",o:["A こころよく","B 迷った挙げ句","C いやいやながら","D 難色を示して"],a:"A"},
+{q:"4. 私の 場合、コツを つかむまでちょっと 時間が かかりました。",o:["A 概要に着目する","B 要領を飲み込む","C 要点に執着する","D 要約をやり遂げる"],a:"B"},
+{q:"5. 人と 話すときに、ずっと 敬語を 使い続けるというのも よしあしだ。",o:["A 損は しない","B いい結果を招く","C 妙案だと言える","D 利点もあるが欠点もある"],a:"D"},
+{q:"6. さっき 山本さんがね、チャイムが 鳴ったとたんに、教室を 出て 行ったんだ。",o:["A 鳴るが早いか","B 鳴ったが最後","C 鳴ったかたわら","D 鳴ってからというもの"],a:"A"},
+{q:"7. 今日は あなたの 本音を 聞きたいと 思っています。",o:["A 生い立ち","B 正式な呼称","C 歌うときの声","D 正直な気持ち"],a:"D"},
+{q:"8. 彼は どちらかと 言うと、無口な 人だ。",o:["A 秘密を 話さない","B おしゃべりを 好まない","C 文句を 言わない","D 話題が 尽きない"],a:"B"},
+{q:"9. 今、私の クラスでは その話で 持ちきりに なっている。",o:["A 言いそびれている","B 秘密になっている","C 話題になっている","D 忘られている"],a:"C"},
+{q:"10. 明日は 大事を 取って 仕事を 休むことに した。",o:["A 覚悟を 決めて","B 焦らないようにして","C 状況を 軽く 見ないで","D 重要なことが あるので"],a:"D"},
+]},
+{id:"CIII",name:"III 会話",type:"m",instr:"＿＿に入る最も適当なものをA~Dの中からひとつ選びなさい。",qs:[
+{q:"1. 先生:「このレポートは 受け取れませんよ。締め切りは 今日の 5時だと 言ってた でしょう？」\n学生:「30分 遅れただけなんですけど。」\n先生:「＿＿。遅れたんですから。時間を 守るのは 最低限の ルールですよ。」\n学生:「すみませんでした。実は、大学に 来る 途中で、自転車の タイヤが パンクしてしまったんです。これからは 十分 気をつけますので、何とか 受け取って いただけませんか。」",o:["A 30分でも 1時間でも 同じことです","B 自転車なんかで 来るからですよ","C 10分程度なら 大目に 見てあげたのですが","D どうして 30分も 遅れたんですか"],a:"A"},
+{q:"2. 田中さん:「先生、この前の 経済学についての レポートは もう 見ていただけましたでしょうか。」\n先生:「ええ、なかなかの ものでしたよ。」\n田中さん:「＿＿。少し データが 少ないかなとも 思うんですが......。」\n先生:「それなら、今は ネットで たくさんの 資料が 公開されていますから、それを 利用してみては どうでしょう。」",o:["A え、そんなに ひどいですか","B では、どんなテーマを 選べばいいでしょうか","C ありがとうございます","D 申し訳ありません"],a:"C"},
+{q:"3. 上司:「会社の 創業20周年パーティーの 招待状、送った？」\n部下:「＿＿」\n上司:「この前の 会議で、送り先リストに 北野コーポレーションが 抜けてるって 言われてたけど、それは 大丈夫？」\n部下:「あ、そういえば そうでしたね。リストを 更新するの 忘れてました。」",o:["A すみません。まだ 定年退職された 役員にしか 送っていません","B はい、ちゃんと 出して おきました","C 3日前に 社内の 役員には 全員 送りました","D まだです。どこに 送ったら いいですか"],a:"B"},
+{q:"4. 山田さん:「あの、先日、この 本を 借りたんですけど。」\n図書館の人:「あ、返却ですね。こちらに どうぞ。」\n山田さん:「いえ、まだ 全部 読めていないので、もう少し お借りしたいんですが。」\n図書館の人:「じゃあ、延長ですね。利用証、お持ちですか。」\n山田さん:「はい。」\n図書館の人:「ちょっと 確認しますね。あ、この 本は、もう 次の 予約が 入ってますね。どう されますか。」\n山田さん:「それじゃあ、＿＿。」\n図書館の人:「できますよ。そのように 手続きしますので、こちらの 用紙に 記入してください。返却されたら、すぐに ご連絡いたします。」",o:["A その人から 直接 借りることは できますか","B その人の 次に 借りることは できますか","C その人より 先に もう一度 借りることは できますか","D その人の 連絡先を 教えてもらうことは できますか"],a:"B"},
+{q:"5. 田中さん:「もしもし。すみません。田中一郎と 申しますが。」\nホテルの従業員:「はい。」\n田中さん:「先ほど インターネットから、6月11日の 予約を 間違って キャンセルしてしまったんです。」\nホテルの従業員:「はい。」\n田中さん:「それで、本当は 6月18日を 取り消したかったので、6月11日は 残していただいて、1週間後の 予約を キャンセルしていただけないでしょうか。」\nホテルの従業員:「少々 お待ちください。......お待たせいたしました。それでは そのように 処理いたします。＿＿。」\n田中さん:「はい。合っています。ありがとうございます。」",o:["A 6月18日に ご宿泊ということで よろしいでしょうか","B 私、山田が うけたまわりました","C そのほかに ご不明な 点は ございませんでしょうか","D 今、田中様の ご予約は ひとつで 間違いございませんでしょうか"],a:"A"},
+]},
+{id:"CIV",name:"IV 漢字",type:"w",instr:"＿＿のひらがなと同じ漢字で書くものをA~Dの中からひとつ選びなさい。",
+k:[
+{n:"1",q:"ようやく 麻 すい から 目が 覚めた。",o:["A 朝から すい 事や 洗濯などの 家事を こなす","B 酒を 飲み過ぎて、よ ってしまった","C 先生に すい 薦状を 書いて もらった","D 水道から 水が た れている"],a:"C"},
+{n:"2",q:"空気が 入って、ぼう 張した。",o:["A 今週は 特に いそ がしい","B 子どもが あばれ ている","C かばんが 大きく ふくら んでいる","D 睡眠を ぼう 害された"],a:"D"},
+{n:"3",q:"4月から 東京の 本社に ふ 任することになった。",o:["A 現地へ おもむ く","B 自然に と んだ町だ","C 胸に 名札を つ ける","D 布団を し いて 寝る"],a:"A"},
+{n:"4",q:"ここに 2週間 たい 在する 予定だ。",o:["A 朝から 交通が とどこお っている","B 彼の たい 慢により、仕事が 遅れた","C 無理な たい 勢は 腰を 痛める","D 定年に なったので、職を しりぞ いた"],a:"C"},
+{n:"5",q:"銀行に お金を 預けると、り 息が 付く。",o:["A 彼に 言うことは り 屈が 通っていない","B 兄よりも 弟の 方が り 口だ","C 先日、友人が り 婚した","D 仕組みを り 解してから 実行する"],a:"D"},
+],h:[]},
+{id:"CV",name:"V 読解",type:"m",instr:"次の文章を読んで、あとの問いに答えなさい。A~Dの中から最も適当なものを一つ選びなさい。\n\n（そもそも 人間が 生きているかぎり、多かれ 少なかれ 限界や 挫折というものは 必ずやってくるものです。学校では「君たちには 無限の 可能性がある」というような メッセージばかりが 強くて、「人には 誰にでも 限界がある」「いくら 頑張っても ダメなことだって ある」ということまでは、教えてくれません。こうした ズレがあるので、社会に 投げ出されたときに（１）ものすごいギャップを感じてしまうわけです。）",qs:[
+{q:"問い１:下線部（１）ものすごいギャップを感じてしまうわけです とありますが、それはなぜですか。",o:["A それぞれの 子どもたちが 持っている 可能性には 差があるから","B 学校と 親との 間で 子どもの 教育についての 考え方が 違うから","C 努力を 続けることで 大きな 仕事に つながることがあるから","D 学校で 教えていることと 社会のあり方が 違っているから"],a:"D"},
+{q:"問い２:下線部（２）「オレ様化する子どもたち」 とは、どのような 子どもたちの ことですか。",o:["A 自分が 一番でないと 気が すまない 子どもたち","B 社会的に 高い 立場の 家庭で 育てられた 子どもたち","C 自分が 失敗することを こわがらない 子どもたち","D どんなことでも 向上心をもって 取り組む 子どもたち"],a:"A"},
+{q:"問い３:下線部（３）そういうもの とはどういうことですか。",o:["A 子どものときの 自分の 経験を、他の 人のために 役立てるということ","B 大人になると、人生の 苦味よりも うま味の 方が 多くなるということ","C 大人になると、苦味を 経験することに 耐えられなくなるということ","D 自分が 経験した 失敗も 含めて、自分の 人生を 作っていくということ"],a:"D"},
+{q:"問い４:人生の「苦味」と「うま味」について、正しく 説明しているものはどれですか。",o:["A 「苦味」は 必ず「うま味」よりも 前に やってくるものである","B 「うま味」とは、大人になるにつれて 知るようになる 社会の 経験である","C 「苦味」とは、自分が 限界を 感じた 経験などのことである","D 人生で「苦味」は 多くなると「うま味」に 変化するものである"],a:"C"},
+{q:"問い５:本文の 内容に 合っているものはどれですか。",o:["A 子どもの 将来にとって、自分の 可能性を 信じることができるように 教えることが 大切である","B 現在、学校と 家庭での 教育によって、子どもたちは「評価社会」で 生きることができるようになっている","C 子どもたちに、自分には できないことがあると 教えることが 必要である","D 人生の うま味とは、苦味の 経験を 少なくすることによって 作られていく ものである"],a:"C"},
+]}
+]}
+];
+
+var cl=0,cs=0,ans={},done=false,savedScore="";
+
+function lvl(){return D[cl];}
+function sec(){return lvl().ss[cs];}
+
+function renderLtabs(){var el=document.getElementById("ltabs");el.innerHTML="";D.forEach(function(lv,i){var b=document.createElement("button");b.className="ltab"+(i===cl?" on":"");b.textContent=lv.name;b.onclick=(function(x){return function(){cl=x;cs=0;render();};})(i);el.appendChild(b);});}
+function renderStabs(){var el=document.getElementById("stabs");el.innerHTML="";lvl().ss.forEach(function(s,i){var b=document.createElement("button");b.className="stab"+(i===cs?" on":"");b.textContent=s.name;b.onclick=(function(x){return function(){cs=x;render();};})(i);el.appendChild(b);});}
+
+function render(){
+  renderLtabs();renderStabs();
+  var s=sec();
+  var h='<div class="sec-title">'+s.name+'</div><p class="instr">'+s.instr+'</p>';
+  if(s.type==="m"){
+    s.qs.forEach(function(q,qi){
+      var key=s.id+"_"+qi,ua=ans[key]||"";
+      var ok=done&&ua&&ua[0]===q.a,ng=done&&(!ua||ua[0]!==q.a);
+      h+='<div class="qb'+(done?(ok?" ok":" ng"):"")+'"><div class="qt">'+q.q+'</div><div class="opts">';
+      q.o.forEach(function(op){var sel=ua===op;var cls="opt"+(sel?" sel":"");if(done){if(op[0]===q.a)cls+=" good";else if(sel)cls+=" bad";}h+='<button class="'+cls+'" '+(done?"disabled":"")+' onclick="pick(\''+key+'\',\''+op.replace(/'/g,"&#39;")+'\')">'+op+'</button>';});
+      h+='</div>';
+      if(done){h+='<div class="fb">正解: <strong>'+q.a+'</strong>'+(ua?"":" — 未回答")+'</div>';}
+      h+='</div>';
+    });
+  }
+  if(s.type==="w"){
+    if(done){h+='<p style="font-size:13px;background:#fef9c3;border:1px solid #fcd34d;border-radius:6px;padding:8px 10px;margin-bottom:10px;color:#92400e">自己採点: 正解と比べて自分で採点してください。</p>';}
+    h+='<div class="whead">■ 選択問題</div>';
+    h+='<div class="wcols" style="font-size:11px;color:#94a3b8;font-weight:700"><span>問題</span><span>あなたの答え</span><span>正解</span></div>';
+    s.k.forEach(function(k,ki){
+      var key=s.id+"_k"+ki;var ua=ans[key]||"";
+      h+='<div class="wcols"><span class="wlabel">'+k.n+'. '+k.q+'</span>'+
+        '<input class="winput" type="text" value="'+ua.replace(/"/g,"&quot;")+'" '+(done?"disabled":"")+' placeholder="A/B/C/D" oninput="sw(\''+key+'\',this.value)">'+
+        '<span class="wans'+(done?" show":"")+'">'+k.a+'</span></div>';
+    });
+  }
+  document.getElementById("main").innerHTML=h;
+  document.getElementById("pb").style.display=(cs===0&&cl===0)?"none":"";
+  document.getElementById("nb").style.display=(cs===lvl().ss.length-1&&cl===D.length-1)?"none":"";
+  var isLast=cl===D.length-1&&cs===lvl().ss.length-1;
+  document.getElementById("sb").style.display=(!done&&isLast)?"":"none";
+  var t=0,d=0;D.forEach(function(lv){lv.ss.forEach(function(s){if(s.type==="m")s.qs.forEach(function(_,qi){t++;if(ans[s.id+"_"+qi])d++;});});});
+  document.getElementById("pg").textContent=d+"/"+t+" answered";
+}
+
+function pick(k,op){if(done)return;ans[k]=op;render();}
+function sw(key,v){ans[key]=v;}
+
+function move(d){
+  var ss=lvl().ss,ns=cs+d;
+  if(ns<0){if(cl>0){cl--;cs=D[cl].ss.length-1;}}
+  else if(ns>=ss.length){if(cl<D.length-1){cl++;cs=0;}}
+  else{cs=ns;}
+  render();
+}
+
+function submit(){
+  done=true;
+  var gc=0,gt=0;
+  var lvRows="";
+  D.forEach(function(lv){
+    var lc=0,lt=0,srows="";
+    lv.ss.forEach(function(s){
+      if(s.type==="m"){var sc=0,st=s.qs.length;s.qs.forEach(function(q,qi){var ua=ans[s.id+"_"+qi]||"";if(ua&&ua[0]===q.a)sc++;});srows+='<div class="ss"><div class="sslabel">'+s.name.split(" ")[0]+'</div><div class="ssval">'+sc+"/"+st+'</div><div class="ssnote">'+Math.round(sc/st*100)+'%</div></div>';lc+=sc;lt+=st;}
+      else{srows+='<div class="ss"><div class="sslabel">'+s.name.split(" ")[0]+'</div><div class="ssval" style="font-size:11px;color:#92400e">Self</div><div class="ssnote">mark</div></div>';}
+    });
+    gc+=lc;gt+=lt;
+    lvRows+='<div class="lrow"><div class="lhdr"><span class="ltitle">'+lv.name+'</span><span class="lval">'+lc+"/"+lt+' ('+Math.round(lc/lt*100)+'%)</span></div><div class="ssgrid">'+srows+'</div></div>';
+  });
+  var pct=Math.round(gc/gt*100),gc2=pct>=80?"gh":pct>=65?"gm":"gl";
+  var gt2=pct>=80?"Excellent":pct>=65?"Good":"Keep practising";
+  if(pct>=80)gt2="Excellent — strong result";else if(pct>=65)gt2="Good";else gt2="Keep practising";
+  savedScore='<div class="scorebox"><div class="stotal"><div class="sbig">'+gc+"/"+gt+'</div><div style="font-size:14px;color:#64748b;margin-top:6px">MCQ total ('+pct+'%)</div><div><span class="grade '+gc2+'">'+gt2+'</span></div></div>'+lvRows+'</div>';
+  showScore();
+}
+
+function showScore(){
+  document.getElementById("main").innerHTML=savedScore;
+  document.getElementById("ltabs").innerHTML="";
+  document.getElementById("stabs").innerHTML="";
+  document.getElementById("nav").innerHTML='<button class="btn" onclick="review()">Review answers</button><button class="btn" onclick="retake()" style="margin-left:4px">Retake</button>';
+}
+
+function review(){
+  cl=0;cs=0;
+  document.getElementById("nav").innerHTML='<button class="btn" id="pb" onclick="move(-1)">← Prev</button><button class="btn" id="nb" onclick="move(1)">Next →</button><span class="prog" id="pg"></span><button class="btn primary" onclick="showScore()" style="margin-left:auto">Back to score</button>';
+  render();
+}
+
+function retake(){
+  ans={};done=false;savedScore="";cl=0;cs=0;
+  document.getElementById("nav").innerHTML='<button class="btn" id="pb" onclick="move(-1)">← Prev</button><button class="btn" id="nb" onclick="move(1)">Next →</button><button class="btn primary" id="sb" style="display:none" onclick="submit()">Submit exam</button><span class="prog" id="pg"></span>';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
